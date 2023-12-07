@@ -11,10 +11,4 @@ router.get("/products", (req, res) => {
   getProducts(req, res);
 });
 
-router.get("/product/:id", (req, res) => {
-  //   getUser(req, res);
-});
-
-router.put("product/:id");
-
 module.exports = router;

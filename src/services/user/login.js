@@ -10,10 +10,9 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      res.status(400).send({
+      return res.status(400).send({
         message: "email or password is not defined",
       });
-      return;
     }
 
     const passwordEncripted = await encryptPassword(password);
@@ -32,7 +31,7 @@ const login = async (req, res) => {
     const user = users.rows[0];
 
     const token = jwt.sign(user, secretKey, {
-      expiresIn: "1m",
+      expiresIn: "5m",
     });
 
     return res.status(200).json({

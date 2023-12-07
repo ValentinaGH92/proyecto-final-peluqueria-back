@@ -5,17 +5,19 @@ const createProduct = async (req, res) => {
     const { name, price, description, stock, img_url } = req.body;
 
     const result = await pool.query(
-      `INSERT INTO products( name, price, description, stock, img_url) VALUES ('${name}', ${price}, '${description}', ${stock}, '${img_url}')`
+      `INSERT INTO products(name, price, description, stock, img_url) VALUES ('${name}', ${price}, '${description}', ${stock}, '${img_url}')`
     );
 
-    if (result.rowCount) {
-      return res.status(201).send({
-        message: "product created sucessfully",
-        productCreated: req.body,
-      });
+    const isRowCountEqualZero = result.rowCount === 0;
+
+    if (isRowCountEqualZero) {
+      return res.status(400).send("product not created");
     }
 
-    return res.status(200).send("product not created");
+    return res.status(201).send({
+      message: "product created sucessfully",
+      productCreated: req.body,
+    });
   } catch (error) {
     res.status(500).send({
       message: "Error to create a products",

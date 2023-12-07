@@ -27,13 +27,13 @@ const createUser = async (req, res) => {
       `INSERT INTO users(email, password, name) VALUES ('${email}', '${passwordEncripted}', '${name}')`
     );
 
-    if (result.rowCount) {
-      return res
-        .status(201)
-        .send({ message: "user created sucessfully", userCreated: req.body });
+    if (!result.rowCount) {
+      return res.status(200).send("user not created");
     }
 
-    return res.status(200).send("user not created");
+    return res
+      .status(201)
+      .send({ message: "user created sucessfully", userCreated: req.body });
   } catch (error) {
     res.status(500).send({
       message: "Error al crear un usuario",
