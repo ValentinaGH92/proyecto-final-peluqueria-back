@@ -2,9 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const routes = require("./routes");
 const dotenv = require("dotenv");
+const swagger = require("./swagger");
 dotenv.config();
 
 const app = express();
+
+swagger(app);
 
 app.use(cors());
 app.use(express.json());
