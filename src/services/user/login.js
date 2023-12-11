@@ -10,7 +10,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).send({
+      return res.status(404).send({
         message: "email or password is not defined",
       });
     }
@@ -21,8 +21,8 @@ const login = async (req, res) => {
       `SELECT * FROM users WHERE password='${passwordEncripted}' AND email='${email}'`
     );
 
-    if (users.rowCount !== 1) {
-      return res.status(400).send({
+    if (users.rowCount === 0) {
+      return res.status(404).send({
         message: "email or password is not correct",
       });
     }

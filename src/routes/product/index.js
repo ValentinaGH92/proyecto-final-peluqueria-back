@@ -75,7 +75,7 @@ router.post("/product", (req, res) => {
 
 /**
  * @swagger
- * /product/products:
+ * /product/product:
  *   get:
  *     tags:
  *       - Products
